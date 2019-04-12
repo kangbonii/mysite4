@@ -25,6 +25,8 @@
 					
 					<form class="board-form" method="post" action="${pageContext.request.contextPath }/board/modify">
 						<input type="hidden" name="no" value="${boardVo.no }" >
+						<input type="hidden" name="crtPage" value="${param.crtPage }" >
+						<input type="hidden" name="kwd" value="${param.kwd }" >
 				
 						<table class="tbl-ex">
 							<tr>

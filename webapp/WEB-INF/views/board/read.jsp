@@ -41,10 +41,10 @@
 						</tr>
 					</table>
 					<div class="bottom">
-						<a href="${pageContext.request.contextPath }/board">글목록</a>
+						<a href="${pageContext.request.contextPath }/board?crtPage=${param.crtPage}&kwd=${param.kwd}">글목록</a>
 						
 						<c:if test="${sessionScope.authUser.no == boardVo.userNo }">	
-							<a href="${pageContext.request.contextPath }/board/modifyform?no=${boardVo.no }">글수정</a>
+							<a href="${pageContext.request.contextPath }/board/modifyform?no=${boardVo.no }&crtPage=${param.crtPage}&kwd=${param.kwd}">글수정</a>
 						</c:if>	
 					</div>
 					

@@ -41,7 +41,7 @@
 						<c:forEach items="${pMap.boardList }" var="boardVo" >
 							<tr>
 								<td>${boardVo.no}</td>
-								<td><a href="${pageContext.request.contextPath }/board/read/${boardVo.no }">${boardVo.title }</a></td>
+								<td><a href="${pageContext.request.contextPath }/board/read/${boardVo.no }?crtPage=${param.crtPage }&kwd=${param.kwd}">${boardVo.title }</a></td>
 								<td>${boardVo.userName }</td>
 								<td>${boardVo.hit }</td>
 								<td>${boardVo.regDate }</td>

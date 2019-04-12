@@ -80,14 +80,18 @@ public class BoardController {
 	/* 글수정 */
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
 	public String modifyform(@ModelAttribute BoardVo boardVo,
+							 @RequestParam(value="crtPage", required=false, defaultValue="1" ) int crtPage, 
+							 @RequestParam( value="kwd", required=false, defaultValue="") String kwd,
 			                 HttpSession session, 
 			                 Model model) {
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		int userNo = authUser.getNo();
 		boardVo.setUserNo(userNo);
 		boardService.modify(boardVo);
-		System.out.println("aaa: " + boardVo.toString());
-		return "redirect:/board/list"; 
+		
+		System.out.println(crtPage);
+		System.out.println(kwd);
+		return "redirect:/board/list?crtPage="+ crtPage + "&kwd=" + kwd;
 	}
 	
 	/* 글삭제 */
