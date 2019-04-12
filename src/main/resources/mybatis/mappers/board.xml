@@ -29,15 +29,17 @@
               				from    board b, users u
               				where   b.user_no = u.no
 		]]>
-              			<if test="kwd != null and kwd !=''">
+					<if test="kwd != null and kwd !=''">
 							and title like '%'|| #{kwd} ||'%'
-						</if> 
+					</if> 
 		<![CDATA[ 
               				order by no desc)
        				 )
 			where rnum>#{startRnum} and rnum<=#{endRnum} 
 		]]>
 	</select>
+
+
 
 	
 	<!-- 전체 글갯수 -->
