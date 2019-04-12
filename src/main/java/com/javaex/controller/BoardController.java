@@ -1,6 +1,6 @@
 package com.javaex.controller;
 
-import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -23,13 +23,27 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 	
+	/* 리스트 페이징 */
+	@RequestMapping(value= {"","/list"}, method=RequestMethod.GET)
+	public String list(@RequestParam(value="crtPage", required=false, defaultValue="1" ) int crtPage, 
+					   @RequestParam( value="kwd", required=false, defaultValue="") String kwd,
+					   Model model) {
+		Map<String, Object> pMap = boardService.getList(crtPage, kwd);
+		model.addAttribute("pMap", pMap);
+		return "board/list";
+	}
+	
+	
 	/* 리스트 기본 */
+	/*
 	@RequestMapping(value= {"","/list"}, method=RequestMethod.GET)
 	public String list(Model model) {
 		List<BoardVo> boardList = boardService.getList();
 		model.addAttribute("boardList", boardList);
 		return "board/list";
 	}
+	*/
+	
 	
 	/* 글쓰기폼 */
 	@RequestMapping(value="/writeform", method=RequestMethod.GET)

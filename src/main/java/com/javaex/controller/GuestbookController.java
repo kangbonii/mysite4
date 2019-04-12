@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.javaex.dao.GuestbookDao;
+import com.javaex.service.GuestbookService;
 import com.javaex.vo.GuestbookVo;
 
 @Controller
@@ -17,18 +17,18 @@ import com.javaex.vo.GuestbookVo;
 public class GuestbookController {
 	
 	@Autowired
-	private GuestbookDao dao;
+	private GuestbookService guestbookService;
 	
 	@RequestMapping(value="/addlist", method=RequestMethod.GET)
 	public String addList(Model model) {
-		List<GuestbookVo> list = dao.selectList();
+		List<GuestbookVo> list = guestbookService.getList();
 		model.addAttribute("list", list);
 		return "guestbook/addlist";
 	}
 	
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public String add(@ModelAttribute GuestbookVo vo) {
-		dao.insert(vo);
+		guestbookService.add(vo);
 		return "redirect:/gb/addlist";
 	}
 	
@@ -42,7 +42,7 @@ public class GuestbookController {
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
 	public String delete(@ModelAttribute GuestbookVo vo) {
 		System.out.println(vo.toString());
-		dao.delete(vo);
+		guestbookService.delete(vo);
 		return "redirect:/gb/addlist";
 	}
 	

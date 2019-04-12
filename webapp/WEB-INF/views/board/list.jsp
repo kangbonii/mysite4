@@ -23,7 +23,7 @@
 				<div id="board">
 					<h2>게시판-리스트</h2>
 					
-					<form action="" method="post">
+					<form action="${pageContext.request.contextPath }/board/list" method="get">
 						<input type="text" id="kwd" name="kwd" value="">
 						<input type="submit" value="찾기">
 					</form>
@@ -38,7 +38,7 @@
 							<th>&nbsp;</th>
 						</tr>				
 						
-						<c:forEach items="${boardList }" var="boardVo" >
+						<c:forEach items="${pMap.boardList }" var="boardVo" >
 							<tr>
 								<td>${boardVo.no}</td>
 								<td><a href="${pageContext.request.contextPath }/board/read/${boardVo.no }">${boardVo.title }</a></td>
@@ -57,20 +57,31 @@
 					</table>
 					<div class="pager">
 						<ul>
-							<li><a href="">◀</a></li>
-							<li><a href="">1</a></li>
-							<li><a href="">2</a></li>
-							<li class="selected">3</li>
-							<li><a href="">4</a></li>
-							<li><a href="">5</a></li>
-							<li><a href="">6</a></li>
-							<li><a href="">7</a></li>
-							<li><a href="">8</a></li>
-							<li><a href="">9</a></li>
-							<li><a href="">10</a></li>
-							<li><a href="">▶</a></li>
+							<c:if test="${pMap.prev == true}">
+								<li><a href="${pageContext.request.contextPath }/board/list?crtPage=${pMap.startPageBtnNo-1 }&kwd=${param.kwd}">◀</a></li>
+							</c:if>
+							
+							<c:forEach begin="${pMap.startPageBtnNo }" end="${pMap.endPageBtnNo }" step="1" var="page">
+								<c:choose>
+									<c:when test="${param.crtPage eq page }">
+										<li class="selected">
+											<a href="${pageContext.request.contextPath }/board/list?crtPage=${page }&kwd=${param.kwd}">${page }</a>
+										</li>
+									</c:when>
+									<c:otherwise>
+										<li>
+											<a href="${pageContext.request.contextPath }/board/list?crtPage=${page }&kwd=${param.kwd}">${page }</a>
+										</li>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+							
+							<c:if test="${pMap.next == true}">
+								<li><a href="${pageContext.request.contextPath }/board/list?crtPage=${pMap.endPageBtnNo+1 }&kwd=${param.kwd}">▶</a></li>
+							</c:if>
+							
 						</ul>
-					</div>				
+					</div>		
 					<c:if test="${sessionScope.authUser ne null }">					
 						<div class="bottom">
 							<a href="${pageContext.request.contextPath }/board/writeform" id="new-book">글쓰기</a>
